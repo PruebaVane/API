@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
-from admin_jwt import createToken
+from jwt_utils import createToken
 from fastapi.responses import JSONResponse
 
 routersLogin = APIRouter()
@@ -13,8 +13,13 @@ class Admin(BaseModel):
 
 @routersLogin.post('/Login', tags=['Autenticacion'])
 def autenticar_login(admin: Admin):
-    if admin.email == 'aestheticestetica22@gmail.com' and admin.password == 'esteticaaesthetic2024': 
-        token: str = createToken(admin.dict())
-        print(token)
-        return JSONResponse(content= token)
+    try:
+        if admin.email == 'aestheticestetica22@gmail.com' and admin.password == 'esteticaaesthetic2024': 
+            token: str = createToken(admin.dict())
+            print(token)
+            return JSONResponse(content={"token": token})
+        else:  
+            return JSONResponse(content={"error": "Invalid credentials"}, status_code=401)
 
+    except Exception as e:
+        return JSONResponse(content={"error": str(e)}, status_code=500)

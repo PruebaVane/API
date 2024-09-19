@@ -9,3 +9,5 @@ def createToken(data: dict):
 def validateToken(token: str) -> dict:
     data : dict = jwt.decode(token, key='misecret', algorithms=['HS256'])
     return data
+
+print("Nuevo commit")

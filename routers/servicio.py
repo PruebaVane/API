@@ -6,7 +6,7 @@ from models.servicios import Service as ModelService
 from fastapi.encoders import jsonable_encoder
 from fastapi import APIRouter
 from fastapi.security import HTTPBearer
-from admin_jwt import validateToken
+from jwt_utils import validateToken
 
 routersService = APIRouter()
 
